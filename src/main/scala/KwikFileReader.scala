@@ -5,11 +5,8 @@
 import scala.io.Source
 
 object KwikFileReader {
-  def read(filename: String) = {
-
-    // TODO Simplify avoid dupe filelines...
-    val source = Source.fromURL(getClass.getResource(filename))
-    val fileLines = source.getLines().toList
-    fileLines
+  def read(filename: String) : List[String] = {
+    val file = Source.fromURL(getClass.getResource(filename))
+    file.getLines().toList
   }
 }
