@@ -5,14 +5,15 @@ import org.scalatest._
 
 class MapperTest extends FlatSpec {
 
-  "isKeyWord" should "return boolean value corresponding to non stop-word" in {
-    assert(Mapper.isKeyWord("a") == false)
-    assert(Mapper.isKeyWord("sensible") == false)
-    assert(Mapper.isKeyWord("panda") == true)
-    assert(Mapper.isKeyWord("ukdtyirsdtliviyfodftktckudytd") == true)
+  "isKeyword" should "return boolean value corresponding to non stop-word" in {
+    
+    assert(!Mapper.isKeyword("a"))
+    assert(!Mapper.isKeyword("sensible"))
+    assert(Mapper.isKeyword("panda"))
+    assert(Mapper.isKeyword("ukdtyirsdtliviy"))
   }
 
-//  "getKeyWords" should "return all keywords for a given string" in {
+//  "getKeywords" should "return all keywords for a given string" in {
 //
 //  }
 //
