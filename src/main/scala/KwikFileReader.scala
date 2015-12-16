@@ -2,7 +2,7 @@
  * Created by abby on 02/12/15.
  */
 
-import scala.io.{Source, BufferedSource}
+import scala.io.Source
 
 object KwikFileReader {
   def read(filename: String) = {

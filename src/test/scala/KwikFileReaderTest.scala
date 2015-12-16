@@ -2,7 +2,6 @@
  * Created by abby on 13/12/15.
  */
 import org.scalatest._
-import scala.io.Source
 
 class KwikFileReaderTest extends FlatSpec {
 
