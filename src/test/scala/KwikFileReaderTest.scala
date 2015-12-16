@@ -4,11 +4,10 @@
 import org.scalatest._
 import scala.io.Source
 
-class TestKwikFileReader extends FlatSpec {
+class KwikFileReaderTest extends FlatSpec {
 
   "KwikFileReader" should "add contents from a file to a val" in {
-    val source = Source.fromURL(getClass.getResource("testFile.txt"))
-    val fileContents = KwikFileReader.read(source)
+    val fileContents = KwikFileReader.read("testFile.txt")
     assert(fileContents == List("test string"), "fileContents is not empty")
   }
 

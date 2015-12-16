@@ -2,16 +2,14 @@
  * Created by abby on 02/12/15.
  */
 
-import scala.io.BufferedSource
+import scala.io.{Source, BufferedSource}
 
 object KwikFileReader {
-  def read(filename: BufferedSource) = {
-    // TODO avoid dupe filelines...
-    val fileLines = filename.getLines().toList
-    fileLines
-  }
+  def read(filename: String) = {
 
-  def main(args: Array[String]) {
-    println("Not doing much yet.")
+    // TODO Simplify avoid dupe filelines...
+    val source = Source.fromURL(getClass.getResource(filename))
+    val fileLines = source.getLines().toList
+    fileLines
   }
 }
