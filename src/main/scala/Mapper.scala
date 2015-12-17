@@ -1,4 +1,4 @@
-import scala.collection.mutable
+import scala.collection.{mutable, SortedMap}
 
 /**
  * Created by abby on 16/12/15.
@@ -6,13 +6,21 @@ import scala.collection.mutable
 
 object Mapper {
 
-  def map(textLines: List[String]) : mutable.LinkedHashMap[Int, List[String]] = {
-    val keywordsMap = scala.collection.mutable.LinkedHashMap[Int, List[String]]()
+  def map(textLines: List[String]) : SortedMap[String, List[Int]] = {
+    val keywordsMap = scala.collection.mutable.LinkedHashMap[String, List[Int]]()
 
-    for ((line, lineNum) <- textLines.zipWithIndex) {
-      if (KeywordFinder.getKeywords(line).nonEmpty) keywordsMap += lineNum + 1 -> KeywordFinder.getKeywords(line)
+    // TODO tidy up...
+    for ((line, i) <- textLines.zipWithIndex) {
+      val lineNum = i+1
+      if (KeywordFinder.getKeywords(line).nonEmpty) {
+        for (keyword <- KeywordFinder.getKeywords(line)) {
+          if (keywordsMap.contains(keyword) && !keywordsMap(keyword).contains(lineNum)) {
+            keywordsMap(keyword) = keywordsMap(keyword) :+ lineNum
+          } else keywordsMap += keyword -> List(lineNum)
+        }
+      }
     }
-    keywordsMap
+    SortedMap.empty[String, List[Int]] ++ keywordsMap
   }
 
 }
