@@ -15,14 +15,19 @@ class MapperTest extends FlatSpec {
 
   "getKeywords" should "return all keywords for a given string" in {
 
-    assert(List("quick", "brown", "fox", "jumped", "lazy", "dog") == Mapper.getKeywords("the quick brown fox " +
-      "jumped over the lazy dog"))
+    assert(List("quick", "brown", "fox", "jumped", "lazy", "panda") == Mapper.getKeywords("the quick brown fox " +
+      "jumped over the lazy panda"))
     assert(List() == Mapper.getKeywords("during a ourselves nonetheless zero"))
   }
 
-//  "map" should "parse list of strings into a map of keywords and line numbers" in {
-//
-//  }
+  "map" should "parse list of strings into a map of line numbers and keywords" in {
+
+    val fileText = KwikFileReader.read("mapperTestFile.txt")
+    assert(Map(1 -> List("panda", "ukdtyirsdtliviy"),
+      2 -> List("quick", "brown", "fox", "jumped", "lazy", "panda"),
+      4 -> List("beautiful", "cocktail", "table", "book", "full", "beautiful", "photos", "China",
+        "Pandas")) == Mapper.map(fileText))
+  }
 
 }
 

@@ -19,8 +19,7 @@ object Mapper {
     val keywords = new ListBuffer[String]()
 
     for (word <- words) {
-      if (isKeyword(word)) {
-        keywords += word}
+      if (isKeyword(word)) keywords += word
     }
     keywords.toList
   }
