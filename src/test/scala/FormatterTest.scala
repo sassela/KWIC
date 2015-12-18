@@ -13,10 +13,15 @@ class FormatterTest extends FlatSpec {
     assert(Formatter.cleanString("sËØOm8E947. €π4∫Ÿ~ÌΩdeCIp8HeËØrAble 7tEx∂ƒt!") == "some decipherable text")
   }
 
-//  "rightJustify" should "print, right justified, up to 30 characters preceding the keyword" in {
-//
-//  }
-//
+  "rightJustify" should "print, right justified, up to 30 characters preceding the keyword" in {
+    val pandaText = "A beautiful cocktail table book full of beautiful photos of China and Pandas."
+
+    assert(Formatter.rightJustify(pandaText, "pandas") == List(" beautiful photos of China and"))
+    assert(Formatter.rightJustify(pandaText, "beautiful") == List("                             A", "ul cocktail table book full of"))
+    assert(Formatter.rightJustify(pandaText, "table") == List("          A beautiful cocktail"))
+
+  }
+
 //  "leftJustify" should "print, left justified, up to 30 characters following the keyword" in {
 //
 //  }
