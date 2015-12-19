@@ -15,17 +15,16 @@ class FormatterTest extends FlatSpec {
   }
 
   "rightJustify" should "return a list of string(s), right justified, up to 30 characters preceding the keyword(s)" in {
-    assert(Formatter.rightJustify(pandaText, "pandas") == List("beautiful photos of China and "))
-    assert(Formatter.rightJustify(pandaText, "beautiful") == List("                            A ",
-      "l cocktail table book full of "))
-    assert(Formatter.rightJustify(pandaText, "table") == List("         A beautiful cocktail "))
+
+    assert(Formatter.rightJustify(pandaText, Formatter.getMatched(pandaText,"pandas").next()) == ("%30s" format "beautiful photos of China and "))
+    assert(Formatter.rightJustify(pandaText, Formatter.getMatched(pandaText,"beautiful").next()) == ("%30s" format "A "))
+    assert(Formatter.rightJustify(pandaText, Formatter.getMatched(pandaText,"table").next()) == ("%30s" format "A beautiful cocktail "))
   }
 
   "leftJustify" should "return a list of string(s), left justified, up to 30 characters following the keyword(s)" in {
-    assert(Formatter.leftJustify(pandaText, "pandas") == List(".                             "))
-    assert(Formatter.leftJustify(pandaText, "beautiful") == List(" cocktail table book full of b",
-      " photos of China and Pandas.  "))
-    assert(Formatter.leftJustify(pandaText, "china") == List(" and Pandas.                  "))
+    assert(Formatter.leftJustify(pandaText, Formatter.getMatched(pandaText,"pandas").next()) == ("%-30s" format "."))
+    assert(Formatter.leftJustify(pandaText, Formatter.getMatched(pandaText,"beautiful").next()) == ("%-30s" format " cocktail table book full of b"))
+    assert(Formatter.leftJustify(pandaText, Formatter.getMatched(pandaText,"china").next()) == ("%-30s" format " and Pandas."))
 
   }
 

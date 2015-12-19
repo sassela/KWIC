@@ -6,43 +6,31 @@ import scala.collection.mutable.ListBuffer
 import scala.util.matching.Regex.Match
 
 object Formatter {
-  // TODO tidy me.
+  val formatSectionLength = 30
 
+  // TODO tidy me.
   def cleanString(text: String) : String = "[^a-z\\s']+".r replaceAllIn(text.toLowerCase, "")
 
+  // TODO move to Keywordfinder
   def getMatched(textLine: String, keyword: String) : Iterator[Match] = {
     keyword.r findAllMatchIn cleanString(textLine)
   }
 
-  def rightJustify(textLine: String, keyword: String) = {
-    val matched = getMatched(textLine, keyword)
-    val sentences = new ListBuffer[String]
-
-    matched.foreach { sentence =>
-      if (sentence.start > 30) {
-        sentences += textLine.substring(sentence.start-30, sentence.start)
-      } else {
-        val precedingText = textLine.substring(0, sentence.start)
-        sentences += (" " * (30 - precedingText.length)) + precedingText
-      }
+  def rightJustify(textLine: String, matchedKeyword: Match) : String = {
+    if (matchedKeyword.start > formatSectionLength) {
+      textLine.substring(matchedKeyword.start-formatSectionLength, matchedKeyword.start)
+    } else {
+      val precedingText = textLine.substring(0, matchedKeyword.start)
+      "%"+formatSectionLength+"s" format precedingText
     }
-
-    sentences.toList
   }
 
-  def leftJustify(textLine: String, keyword: String) = {
-    val matched = getMatched(textLine, keyword)
-    val sentences = new ListBuffer[String]
-
-    matched.foreach { matchedKeyword =>
-      if (matchedKeyword.end < 30) {
-        sentences += textLine.substring(matchedKeyword.end, matchedKeyword.end+30)
-      } else {
-        val followingText = textLine.substring(matchedKeyword.end, textLine.length)
-        sentences += (followingText + " " * (30 - followingText.length))
-      }
+  def leftJustify(textLine: String, matchedKeyword: Match) : String = {
+    if (matchedKeyword.end < formatSectionLength) {
+      textLine.substring(matchedKeyword.end, matchedKeyword.end+formatSectionLength)
+    } else {
+      val followingText = textLine.substring(matchedKeyword.end)
+      "%-"+formatSectionLength+"s" format followingText
     }
-
-    sentences.toList
   }
 }
