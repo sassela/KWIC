@@ -3,6 +3,6 @@
  */
 object Formatter {
 
-  def cleanString(text: String) : String = text.toLowerCase.replaceAll("[^a-z\\s']+", "")
+  def cleanString(text: String) : String = "[^a-z\\s']+".r replaceAllIn(text.toLowerCase, "")
 
 }
