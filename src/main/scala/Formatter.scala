@@ -44,4 +44,22 @@ object Formatter {
     }
     sentences.toList
   }
+
+  def formatFile(fromFileName: String) = {
+    val fileLines = KwikFileReader.read(fromFileName)
+    val keywordsMap = Mapper.map(fileLines)
+    val formattedFile = new StringBuilder()
+
+    keywordsMap.foreach{ case (key, value) =>
+
+      value.foreach { lineNum =>
+        val lines = formatLine(lineNum, fileLines(lineNum-1), key)
+        lines.foreach { line =>
+          formattedFile.append(line+"\n")
+        }
+      }
+    }
+
+    formattedFile.mkString
+  }
 }

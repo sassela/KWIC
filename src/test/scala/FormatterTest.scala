@@ -11,7 +11,7 @@ class FormatterTest extends FlatSpec {
     assert(Formatter.cleanString("Hello, panda.") == "hello panda")
     assert(Formatter.cleanString(pandaText) ==
       "a beautiful cocktail table book full of beautiful photos of china and pandas")
-    assert(Formatter.cleanString("sËØOm8E947. €π4∫Ÿ~ÌΩdeCIp8HeËØrAble 7tEx∂ƒt!") == "some decipherable text")
+    assert(Formatter.cleanString("sËØOm8E947. €π4∫Ÿ~ÌΩdeCIp8HeËØrAble 7tEx∂ƒt!'") == "some decipherable text'")
   }
 
   "rightJustify" should "return a string, right justified, up to 30 characters preceding the keyword(s)" in {
