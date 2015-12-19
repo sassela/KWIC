@@ -29,4 +29,20 @@ object Formatter {
 
     sentences.toList
   }
+
+  def leftJustify(textLine: String, keyword: String) = {
+    val matched = getMatched(textLine, keyword)
+    val sentences = new ListBuffer[String]
+
+    matched.foreach { matchedKeyword =>
+      if (matchedKeyword.end < 30) {
+        sentences += textLine.substring(matchedKeyword.end, matchedKeyword.end+30)
+      } else {
+        val followingText = textLine.substring(matchedKeyword.end, textLine.length)
+        sentences += (followingText + " " * (30 - followingText.length))
+      }
+    }
+
+    sentences.toList
+  }
 }
