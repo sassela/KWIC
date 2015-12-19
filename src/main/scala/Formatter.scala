@@ -11,7 +11,7 @@ object Formatter {
   def cleanString(text: String) : String = "[^a-z\\s']+".r replaceAllIn(text.toLowerCase, "")
 
   def getMatched(textLine: String, keyword: String) : Iterator[Match] = {
-    ("\\s*" + keyword + "\\s*").r findAllMatchIn cleanString(textLine)
+    keyword.r findAllMatchIn cleanString(textLine)
   }
 
   def rightJustify(textLine: String, keyword: String) = {
