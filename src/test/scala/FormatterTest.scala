@@ -33,13 +33,13 @@ class FormatterTest extends FlatSpec {
   }
 
   "formatLine" should "return a list of formatted string(s)" in {
-    assert(Formatter.formatLine(4, "pandas", pandaText) ==
-      List("004 " + ("%30s" format "beautiful photos of China and ") + "Pandas" + ("%-30s" format ".")))
-    assert(Formatter.formatLine(4, "beautiful", pandaText) ==
-      List("004 " + ("%30s" format "A ") + "beautiful" + ("%-30s" format " cocktail table book full of b"),
-      "004 " + ("%30s" format "l cocktail table book full of ") + "beautiful" + ("%-30s" format  "photos of china and pandas")))
-    assert(Formatter.formatLine(4, "cocktail", pandaText) == List("004 " + ("%30s" format "A beautiful ") +
-      "cocktail" + ("%-30s" format  " table book full of beautiful ")))
+    assert(Formatter.formatLine(4, pandaText, "pandas") ==
+      List("004 " + ("%30s" format "beautiful photos of China and ") + (" %s" format "pandas") + ("%-30s" format ".")))
+    assert(Formatter.formatLine(4, pandaText, "beautiful") ==
+      List("004 " + ("%30s" format "A ") + (" %s" format "beautiful") + ("%-30s" format " cocktail table book full of b"),
+      "004 " + ("%30s" format "l cocktail table book full of ") + (" %s" format "beautiful") + ("%-30s" format  " photos of China and Pandas.")))
+    assert(Formatter.formatLine(4, pandaText, "cocktail") == List("004 " + ("%30s" format "A beautiful ") +
+      (" %s" format "cocktail") + ("%-30s" format  " table book full of beautiful ")))
   }
 
 
