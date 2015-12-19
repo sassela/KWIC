@@ -9,12 +9,6 @@ object Formatter {
   val formatSectionLength = 30
 
   // TODO tidy me.
-  def cleanString(text: String) : String = "[^a-z\\s']+".r replaceAllIn(text.toLowerCase, "")
-
-  // TODO move to Keywordfinder
-  def getMatched(textLine: String, keyword: String) : Iterator[Match] = {
-    keyword.r findAllMatchIn cleanString(textLine)
-  }
 
   def rightJustify(textLine: String, matchedKeyword: Match) : String = {
     if (matchedKeyword.start > formatSectionLength) {
@@ -35,16 +29,17 @@ object Formatter {
   }
 
   def formatLine(lineNo: Int, textLine: String, keyword: String) = {
-    val matched = getMatched(textLine, keyword)
+    val keywordMatches = KeywordFinder.getKeywordMatches(textLine, keyword)
     val sentences = new ListBuffer[String]
 
-    matched.foreach { matchedKeyword => {
-        sentences += ("%03d " format lineNo) + rightJustify(textLine, matchedKeyword) + (" %s" format keyword) + leftJustify(textLine, matchedKeyword)
+    keywordMatches.foreach { keywordMatch => {
+        sentences += ("%03d " format lineNo) + rightJustify(textLine, keywordMatch) + (" %s" format keyword) + leftJustify(textLine, keywordMatch)
       }
     }
     sentences.toList
   }
 
+  // TODO write some tests
   def formatFile(fromFileName: String) = {
     val fileLines = KwikFileReader.read(fromFileName)
     val keywordsMap = Mapper.map(fileLines)

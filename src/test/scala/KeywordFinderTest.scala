@@ -5,6 +5,14 @@ import org.scalatest.FlatSpec
  */
 class KeywordFinderTest extends FlatSpec  {
 
+  "cleanString" should "lowercase all words and remove all digits and all punctuation except apostrophes" in {
+
+    assert(KeywordFinder.cleanString("Hello, panda.") == "hello panda")
+    assert(KeywordFinder.cleanString("A beautiful cocktail table book full of beautiful photos of China and Pandas.") ==
+      "a beautiful cocktail table book full of beautiful photos of china and pandas")
+    assert(KeywordFinder.cleanString("sËØOm8E947. €π4∫Ÿ~ÌΩdeCIp8HeËØrAble 7tEx∂ƒt!'") == "some decipherable text'")
+  }
+
   "isKeyword" should "return boolean value corresponding to non stop-word" in {
 
     assert(!KeywordFinder.isKeyword("a"))
