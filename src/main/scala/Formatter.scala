@@ -26,7 +26,7 @@ object Formatter {
   }
 
   def leftJustify(textLine: String, matchedKeyword: Match) : String = {
-    if (matchedKeyword.end < formatSectionLength) {
+    if (matchedKeyword.end+formatSectionLength < textLine.length) {
       textLine.substring(matchedKeyword.end, matchedKeyword.end+formatSectionLength)
     } else {
       val followingText = textLine.substring(matchedKeyword.end)
