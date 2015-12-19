@@ -33,4 +33,15 @@ object Formatter {
       "%-"+formatSectionLength+"s" format followingText
     }
   }
+
+  def formatLine(lineNo: Int, textLine: String, keyword: String) = {
+    val matched = getMatched(textLine, keyword)
+    val sentences = new ListBuffer[String]
+
+    matched.foreach { matchedKeyword => {
+        sentences += ("%03d " format lineNo) + rightJustify(textLine, matchedKeyword) + (" %s" format keyword) + leftJustify(textLine, matchedKeyword)
+      }
+    }
+    sentences.toList
+  }
 }
